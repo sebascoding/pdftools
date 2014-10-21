@@ -1,0 +1,5 @@
+__author__ = "Sebastian Alvarez Mendez"
+__author_email__ = "salvarez013@gmail.com"
+__copyright__ = "Copyright (C) 2014 Sebastian Alvarez Mendez"
+__license__ = "GPLv3"
+__version__ = "0.1"
