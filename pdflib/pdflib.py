@@ -21,6 +21,7 @@
 import types
 import sys
 import re
+import chardet
 import pdb
 
 #====== Character's classes ======
@@ -29,6 +30,8 @@ WHITESPACE = 0
 DELIMITER = 1
 REGULAR = 2
 #=================================
+
+excluded_chars = [u'\x00', u'\xfe', u'\xff']
 
 def is_whitespace(ch):
     return ord(ch) in (0, 9, 10, 12, 13, 32)
@@ -49,7 +52,6 @@ def get_char_class(ch):
 
 def parse_pdfstr(pdfstr):
 
-    ''' Falta implementar caracteres octales'''
     (idx, j, k) = (0, 0, 0)
     balance = 0
     size = len(pdfstr)
@@ -82,6 +84,15 @@ def parse_pdfstr(pdfstr):
 
                 token += pdfstr[idx]
                 j += 1
+            else:
+                ch = pdfstr[idx].decode(chardet.detect(pdfstr[idx])['encoding'])
+                if ch not in excluded_chars:
+                    try:
+                        token += ch.encode('utf-8')
+                        j += 1
+                    except Exception, e:
+                        print e
+
 
             idx += 1
 
@@ -112,7 +123,8 @@ def unescape_pdfstr(pdfstr):
         if len(s) > 0:
             if len(s) >= 3:
                 try:
-                    newstr[idx] = str(int(s[0:3], 8)) + s[3:]
+                    # Converting octal to char
+                    newstr[idx] = chr(int(s[0:3], 8)) + s[3:]
                 except:
                     pass
 
