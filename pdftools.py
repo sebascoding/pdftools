@@ -1,5 +1,7 @@
 import sys, getopt
 
+import pdb
+
 from pdflib import pdflib
 from pdflib.trailer import Trailer
 from pdflib.xref import Xref
@@ -20,7 +22,7 @@ def main(argv):
             sys.exit()
         elif opt in ("-m", "--meta"):
             getMeta(arg)
-        else:   
+        else:
             print 'usage: pdftools.py -m <file.pdf>'
 
 def getMeta(pdfFile):
@@ -28,10 +30,14 @@ def getMeta(pdfFile):
     info = None
     pdf = None
 
-#try:
-    pdf = pdflib.PDFFile(pdfFile, 'rU')
+    pdf = pdflib.PDFFile(pdfFile, 'r')
+
+    if pdf.is_linearized():
+        print "Skipping linearized PDF file"
+        return
 
     trailer = Trailer(pdf)
+    #pdb.set_trace()
     if trailer.parse() is False:
         print "Error parseando trailer"
         exit()
@@ -59,12 +65,6 @@ This is free software, and you are welcome to redistribute it
 under certain conditions; type `show c' for details.'''
 
     print "\n" + license + "\n"
-#except Exception, e:
-#    print str(e)
-#    exit()
-#finally:
-    #with open ("result.log", 'a') as fh:
-    #    fh.write("-------------------------------\n%s\n\n" % info)
 
 if __name__ == "__main__":
    printLicense()

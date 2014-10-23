@@ -42,7 +42,7 @@ class Trailer(object):
         if offset == -1:
             offset = self.first_offset()
             if offset == -1:
-                return False    
+                return False
         self.pdf.seek(offset)
 
         while True:
@@ -114,73 +114,19 @@ class Trailer(object):
         offset = -1
 
         self.pdf.seek(0, 2)
+        total_size = self.pdf.tell()
 
-        size = self.pdf.tell()
+        self.pdf.seek(0, 0)
 
-        while self.pdf.tell() >= size - size/2:
+        lines = self.pdf.readlines()
+        cur_size = 0
 
-            #print self.pdf.tell()
+        for line in reversed(lines):
+            cur_size += len(line)
 
-            line = self.pdf.get_prev_line()
-
-            if line == 'trailer':
-                offset = self.pdf.tell()
+            if 'trailer' in line:
+                offset = total_size - cur_size
                 break
 
         return offset
-
-        #//====== Temporary fix for pure xref streams pdfs ===============
-        #for (i = 0 i < 10 i++)
-        #{
-            #offset = get_prev_line(&line, &size, pdf, offset)
-
-            #if (!line)
-                #return -1
-            
-    #//  		printf("%s\n", line)
-            
-            #if (strncmp(line, "startxref", (size < 9 ? size : 9) ) == 0)
-            #{
-                #// Needed, get_prev_line gives you the offset but doesn't move
-                #fseek(pdf, offset, SEEK_SET)
-                
-                #char c1 = '\0'
-                
-                #while ((c1 = fgetc(pdf)) != '>')
-                #{
-    #// 				if (is_whitespace(c1))
-    #// 					puts("white")
-    #// 				else
-    #// 					printf("%c\n", c1)
-                    #offset--
-                    #fseek(pdf, offset, SEEK_SET)
-                #}
-                
-    #// 			printf("%c\n", c1)
-                
-                #offset--
-                #fseek(pdf, offset, SEEK_SET)
-                
-                #char c[] = {fgetc(pdf),fgetc(pdf)}
-                
-    #// 			printf("%c,%c\n", c[0],c[1])
-                
-                #if (c[0] != '>' || c[1] != '>')
-                #{
-                    #puts("Stream Xref")
-                    #offset = -1 // With this it avoids searching for stream xref instead of trailer
-                #}
-                
-                #free(line)
-                #line = NULL
-                
-                #break
-            #}
-            
-            #free(line)
-            #line = NULL
-        #}
-        #// ===================================================
-
-        #return -1
 

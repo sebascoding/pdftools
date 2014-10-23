@@ -22,6 +22,7 @@ import types
 import sys
 import re
 import chardet
+import io
 import pdb
 
 #====== Character's classes ======
