@@ -35,12 +35,11 @@ class Trailer(object):
         self.info = None
         self.ID = -1
 
-    def parse(self, pdf=None, offset=-1):
+    def parse(self, pdf=None, linearized=False, offset=-1):
 
-        #pdb.set_trace()
         # If not offset is given it will find where the (first) trailer is
         if offset == -1:
-            offset = self.first_offset()
+            offset = self.first_offset(linearized=linearized)
             if offset == -1:
                 return False
         self.pdf.seek(offset)
@@ -53,8 +52,6 @@ class Trailer(object):
 
                 fields = ('Size', 'Prev', 'Root', 'Encrypt', 'Info', 'ID')
                 lastfield = ''
-
-                #print rawtrailer
 
                 for s in rawtrailer:
                     if len(s) > 0:
@@ -75,12 +72,6 @@ class Trailer(object):
                                         gen_number=int(self.__dict__[k][1]),
                                         key=self.__dict__[k][2])
                         self.__dict__[k] = ref
-
-                #for k in self.__dict__.viewkeys():
-                    #try:
-                        #self.__dict__[k] = int(self.__dict__[k])
-                    #except:
-                        #pass
 
                 break
 
@@ -109,7 +100,7 @@ class Trailer(object):
         else:
             return -1
 
-    def first_offset(self):
+    def first_offset(self, linearized=False):
 
         offset = -1
 
@@ -121,11 +112,16 @@ class Trailer(object):
         lines = self.pdf.readlines()
         cur_size = 0
 
-        for line in reversed(lines):
+        lines = reversed(lines) if not linearized else lines
+
+        for line in lines:
             cur_size += len(line)
 
             if 'trailer' in line:
-                offset = total_size - cur_size
+                if not linearized:
+                    offset = total_size - cur_size
+                else:
+                    offset = cur_size - (len(line) - len("trailer"))
                 break
 
         return offset

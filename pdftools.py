@@ -32,13 +32,13 @@ def getMeta(pdfFile):
 
     pdf = pdflib.PDFFile(pdfFile, 'r')
 
-    if pdf.is_linearized():
-        print "Skipping linearized PDF file"
-        return
+#   if pdf.is_linearized():
+#       print "Skipping linearized PDF file"
+#       return
 
     trailer = Trailer(pdf)
     #pdb.set_trace()
-    if trailer.parse() is False:
+    if trailer.parse(linearized=pdf.is_linearized()) is False:
         print "Error parseando trailer"
         exit()
 #print trailer
