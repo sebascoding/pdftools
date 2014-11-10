@@ -147,7 +147,7 @@ class PDFFile(file):
     def get_prev_line(self, offset=-1):
 
 
-        #pdb.set_trace()
+#        pdb.set_trace()
         if offset != -1:
             self.seek(offset)
 
@@ -155,8 +155,8 @@ class PDFFile(file):
         line = ''
 
         while ch in (chr(0x0D), chr(0x0A)):
-            ch = self.read(1)
             self.seek(-2, 1)
+            ch = self.read(1)
 
         self.seek(-1, 1)
 
@@ -172,18 +172,20 @@ class PDFFile(file):
             ch = self.read(1)
 
         i = 1
+        size = len(line)
         if line == '':
             #pdb.set_trace()
             line = self.readline()
             line = line.split(chr(0X0D))
             if len(line) > 1:
                 i += 1
+            size = sum(map(len, line)) + len(line) - 1
             line = line[0]
         #pdb.set_trace()
 
         #print "prev: %s" % self.tell()
         #print "len: %s" % len(line)
-        self.seek(-(len(line)+i), 1)
+        self.seek(-(size + 1), 1)
         #print "after: %s" % self.tell()
 
         #print line.strip()

@@ -112,6 +112,8 @@ class Xref(object):
 
         line = self.pdf.get_prev_line()
 
+        #pdb.set_trace()
+
         while not 'startxref' in line:
             line = self.pdf.get_prev_line()
             #print line
@@ -142,6 +144,10 @@ class Xref(object):
 
     def get_total_refs(self):
         return len(self.references)
+
+    def is_xref_stream(self):
+        self.pdf.seek(self.first_xref_offset(), 0)
+        return self.pdf.readline()[0:len('xref')] != 'xref'
 
     def __str__(self):
 

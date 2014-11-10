@@ -34,28 +34,32 @@ def getMeta(pdfFile):
 
     linearized = pdf.is_linearized()
 
-    trailer = Trailer(pdf)
-
-    if trailer.parse(linearized=linearized) is False:
-        print "Error parseando trailer"
-        exit()
-
-    info_ref = trailer.info
-
     xref = Xref(pdf)
 
-    if not linearized:
-        xref.parse_full_xref()
+    xref_stream = xref.is_xref_stream()
+
+    if not xref_stream:
+
+        trailer = Trailer(pdf)
+
+        if trailer.parse(linearized=linearized) is False:
+            print "Error parseando trailer"
+            exit()
+
+        info_ref = trailer.info
+
+        if not linearized:
+            xref.parse_full_xref()
+        else:
+            xref.parse_xref(trailer.prev)
+
+        info_off = xref.get_ref_offset(num=info_ref.num, gen_number=info_ref.gen_number)
+
+        info = Info(pdf)
+        info.parse(offset=info_off)
+        print info
     else:
-        xref.parse_xref(trailer.prev)
-#print xref
-
-    info_off = xref.get_ref_offset(num=info_ref.num, gen_number=info_ref.gen_number)
-#print "info: %s" % info_off
-
-    info = Info(pdf)
-    info.parse(offset=info_off)
-    print info
+        print "Xref Stream"    
 
 def printLicense():
 
