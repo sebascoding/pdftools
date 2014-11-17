@@ -60,7 +60,7 @@ class Trailer(object):
                         if len(s) > 0:
                             if s[0] in fields:
                                 lastfield = s[0]
-                                if s[0] != 'ID': s[0] = s[0].lower() 
+                                if s[0] != 'ID': s[0] = s[0].lower()
                                 self.__dict__[s[0]] = s[1:]
 
                 for k in ('size', 'prev'):

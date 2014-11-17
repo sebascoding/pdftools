@@ -138,6 +138,25 @@ def unescape_pdfstr(pdfstr):
 
     return ''.join(newstr)
 
+def parse_obj_dict(rawobj, keys=()):
+
+    obj_dict = {}
+
+    lastkey = ''
+
+    for s in rawobj.split('/'):
+        if len(s) > 0:
+            s = s.split()
+
+            if len(s) > 0:
+                if s[0] in keys:
+                    lastkey = s[0]
+                    s[0] = s[0].lower()
+                    obj_dict[s[0]] = ' '.join(s[1:])
+                elif lastkey != '':
+                    obj_dict[lastkey] += ' '.join[s]
+
+    return obj_dict
 
 class PDFFile(file):
 
@@ -313,3 +332,143 @@ class PDFDate(object):
         datestr += "%s" % self.second
 
         return datestr
+From sealvare Mon Nov 17 09:59:48 2014
+To: pdflib/pdflib.py
+Subject: M	pdflib/trailer.pysealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git status# On branch xrefstream# Changes not staged for commit:#   (use "git add <file>..." to update what will be committed)#   (use "git checkout -- <file>..." to discard changes in working directory)##	modified:   pdflib/pdflib.py#	modified:   pdflib/trailer.py#no changes added to commit (use "git add" and/or "git commit -a")sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git branch  master* xrefstreamsealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git push -u origin xrefstream WARNING: gnome-keyring:: couldn't connect to: /home/sealvare/.cache/keyring-IrXKIW/pkcs11: No such file or directoryUsername for 'https://github.com': sealvarePassword for 'https://sealvare@github.com': remote: Invalid username or password.fatal: Authentication failed for 'https://github.com/sealvarez/pdftools.git/'sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git push -u origin xrefstream WARNING: gnome-keyring:: couldn't connect to: /home/sealvare/.cache/keyring-IrXKIW/pkcs11: No such file or directoryUsername for 'https://github.com': sealvarePassword for 'https://sealvare@github.com': remote: Invalid username or password.fatal: Authentication failed for 'https://github.com/sealvarez/pdftools.git/'sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git push -u origin xrefstream WARNING: gnome-keyring:: couldn't connect to: /home/sealvare/.cache/keyring-IrXKIW/pkcs11: No such file or directoryUsername for 'https://github.com': sealvarezPassword for 'https://sealvarez@github.com': remote: Invalid username or password.fatal: Authentication failed for 'https://github.com/sealvarez/pdftools.git/'sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git checkout 
+
+M	pdflib/pdflib.py
+M	pdflib/trailer.py
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git status
+# On branch xrefstream
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   pdflib/pdflib.py
+#	modified:   pdflib/trailer.py
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git branch
+  master
+* xrefstream
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git push -u origin xrefstream 
+WARNING: gnome-keyring:: couldn't connect to: /home/sealvare/.cache/keyring-IrXKIW/pkcs11: No such file or directory
+Username for 'https://github.com': sealvare
+Password for 'https://sealvare@github.com': 
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://github.com/sealvarez/pdftools.git/'
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git push -u origin xrefstream 
+WARNING: gnome-keyring:: couldn't connect to: /home/sealvare/.cache/keyring-IrXKIW/pkcs11: No such file or directory
+Username for 'https://github.com': sealvare
+Password for 'https://sealvare@github.com': 
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://github.com/sealvarez/pdftools.git/'
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git push -u origin xrefstream 
+WARNING: gnome-keyring:: couldn't connect to: /home/sealvare/.cache/keyring-IrXKIW/pkcs11: No such file or directory
+Username for 'https://github.com': sealvarez
+Password for 'https://sealvarez@github.com': 
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://github.com/sealvarez/pdftools.git/'
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git checkout 
+M	pdflib/pdflib.py
+M	pdflib/trailer.py
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git status
+# On branch xrefstream
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   pdflib/pdflib.py
+#	modified:   pdflib/trailer.py
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git branch
+  master
+* xrefstream
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git push -u origin xrefstream 
+WARNING: gnome-keyring:: couldn't connect to: /home/sealvare/.cache/keyring-IrXKIW/pkcs11: No such file or directory
+Username for 'https://github.com': sealvare
+Password for 'https://sealvare@github.com': 
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://github.com/sealvarez/pdftools.git/'
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git push -u origin xrefstream 
+WARNING: gnome-keyring:: couldn't connect to: /home/sealvare/.cache/keyring-IrXKIW/pkcs11: No such file or directory
+Username for 'https://github.com': sealvare
+Password for 'https://sealvare@github.com': 
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://github.com/sealvarez/pdftools.git/'
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git push -u origin xrefstream 
+WARNING: gnome-keyring:: couldn't connect to: /home/sealvare/.cache/keyring-IrXKIW/pkcs11: No such file or directory
+Username for 'https://github.com': sealvarez
+Password for 'https://sealvarez@github.com': 
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://github.com/sealvarez/pdftools.git/'
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git checkout 
+M	pdflib/pdflib.py
+M	pdflib/trailer.py
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git status
+# On branch xrefstream
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   pdflib/pdflib.py
+#	modified:   pdflib/trailer.py
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git branch
+  master
+* xrefstream
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git push -u origin xrefstream 
+WARNING: gnome-keyring:: couldn't connect to: /home/sealvare/.cache/keyring-IrXKIW/pkcs11: No such file or directory
+Username for 'https://github.com': sealvare
+Password for 'https://sealvare@github.com': 
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://github.com/sealvarez/pdftools.git/'
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git push -u origin xrefstream 
+WARNING: gnome-keyring:: couldn't connect to: /home/sealvare/.cache/keyring-IrXKIW/pkcs11: No such file or directory
+Username for 'https://github.com': sealvare
+Password for 'https://sealvare@github.com': 
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://github.com/sealvarez/pdftools.git/'
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git push -u origin xrefstream 
+WARNING: gnome-keyring:: couldn't connect to: /home/sealvare/.cache/keyring-IrXKIW/pkcs11: No such file or directory
+Username for 'https://github.com': sealvarez
+Password for 'https://sealvarez@github.com': 
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://github.com/sealvarez/pdftools.git/'
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git checkout 
+M	pdflib/pdflib.py
+M	pdflib/trailer.py
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git status
+# On branch xrefstream
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   pdflib/pdflib.py
+#	modified:   pdflib/trailer.py
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git branch
+  master
+* xrefstream
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git push -u origin xrefstream 
+WARNING: gnome-keyring:: couldn't connect to: /home/sealvare/.cache/keyring-IrXKIW/pkcs11: No such file or directory
+Username for 'https://github.com': sealvare
+Password for 'https://sealvare@github.com': 
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://github.com/sealvarez/pdftools.git/'
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git push -u origin xrefstream 
+WARNING: gnome-keyring:: couldn't connect to: /home/sealvare/.cache/keyring-IrXKIW/pkcs11: No such file or directory
+Username for 'https://github.com': sealvare
+Password for 'https://sealvare@github.com': 
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://github.com/sealvarez/pdftools.git/'
+sealvare@mulhacen:~/Dropbox/workspace/Python/pdfmanager$ git push -u origin xrefstream 
+WARNING: gnome-keyring:: couldn't connect to: /home/sealvare/.cache/keyring-IrXKIW/pkcs11: No such file or directory
+Username for 'https://github.com': sealvarez
+Password for 'https://sealvarez@github.com': 
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://github.com/sealvarez/pdftools.git/'
+
